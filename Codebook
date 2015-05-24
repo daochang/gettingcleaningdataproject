@@ -1,0 +1,58 @@
+Codebook
+
+The raw data consists of data collected from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ using a Samsung smart phone as part of an experiment to see how such data varies with different activities a person wearing the phone engages in.
+
+Some info on the data
+
+The time domain signals (prefix 't' to denote time) were captured at a constant rate of 50 Hz. Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ) using another low pass Butterworth filter with a corner frequency of 0.3 Hz. 
+
+Subsequently, the body linear acceleration and angular velocity were derived in time to obtain Jerk signals (tBodyAccJerk-XYZ and tBodyGyroJerk-XYZ). Also the magnitude of these three-dimensional signals were calculated using the Euclidean norm (tBodyAccMag, tGravityAccMag, tBodyAccJerkMag, tBodyGyroMag, tBodyGyroJerkMag). 
+
+Finally a Fast Fourier Transform (FFT) was applied to some of these signals producing fBodyAcc-XYZ, fBodyAccJerk-XYZ, fBodyGyro-XYZ, fBodyAccJerkMag, fBodyGyroMag, fBodyGyroJerkMag. (Note the 'f' to indicate frequency domain signals). 
+
+These signals were used to estimate variables of the feature vector for each pattern:  
+'-XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
+
+A list of the features is shown below
+
+tBodyAcc-XYZ
+tGravityAcc-XYZ
+tBodyAccJerk-XYZ
+tBodyGyro-XYZ
+tBodyGyroJerk-XYZ
+tBodyAccMag
+tGravityAccMag
+tBodyAccJerkMag
+tBodyGyroMag
+tBodyGyroJerkMag
+fBodyAcc-XYZ
+fBodyAccJerk-XYZ
+fBodyGyro-XYZ
+fBodyAccMag
+fBodyAccJerkMag
+fBodyGyroMag
+fBodyGyroJerkMag
+
+The run_analysis file first reads in the 8 files mentioned in the README file on
+the GitHub repo into R. The following steps are done to process the data:
+
+The data frames containing subject identifiers (participants), training labels 
+(denoting the type of activity done), and the feature data collected by the 
+smart phone are merged, for both the training and test data.
+
+
+The complete test and training datasets are merged using rowbind function to
+produce 1 big dataset.
+
+Columns 3 to 563 in this dataset are renamed with the help of the data in the 
+features.txt file. Columns 1 and 2 are renames "subject" and "activity" to reflect their contents.
+
+With reference to the activity_labels.txt file, a vector of activity names was
+created, and this was used to map to the numbers in the big dataset to produce 
+a more readable and meaningful dataset.
+
+The grep function is used to extract only the feature data that contains mean and 
+frequency. Subject and activity columns are kept intact. Columns with "meanfreq" are ignored, as they are weighted averages of the frequency components and not means of a single
+feature per se.
+
+Using the dplyr package, a tidy data frame of summary data containing the mean of the feature data per activity, per subject is created, with a total of 180 rows and 68 columns resulting.
