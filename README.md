@@ -18,3 +18,5 @@ And has unzipped the file and put the following files directly in the R working 
 7.	 "y_train.txt"
 8.	 "activity_labels.txt"
 The script will read in the files above before proceeding to carry out the necessary transformations and calculations as required by the Course Project instructions – details outlined in the Codebook.
+
+It is assumed that the user has already installed the dplyr package for R.
